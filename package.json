@@ -1,0 +1,48 @@
+{
+  "name": "strip-bom-cli",
+  "version": "0.0.0",
+  "description": "Strip UTF-8 byte order mark (BOM)",
+  "license": "MIT",
+  "repository": "sindresorhus/strip-bom-cli",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "bin": {
+    "strip-bom": "cli.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "keywords": [
+    "cli-app",
+    "cli",
+    "bom",
+    "strip",
+    "byte",
+    "mark",
+    "unicode",
+    "utf8",
+    "utf-8",
+    "remove",
+    "delete",
+    "trim",
+    "text",
+    "stream",
+    "streams"
+  ],
+  "dependencies": {
+    "meow": "^3.3.0",
+    "strip-bom-stream": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "0.0.4"
+  }
+}
