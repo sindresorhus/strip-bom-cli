@@ -1,6 +1,6 @@
 'use strict';
-var test = require('ava');
 var childProcess = require('child_process');
+var test = require('ava');
 
 test(function (t) {
 	t.plan(2);
