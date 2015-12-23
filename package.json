@@ -40,7 +40,7 @@
   ],
   "dependencies": {
     "meow": "^3.3.0",
-    "strip-bom-stream": "^1.0.0"
+    "strip-bom-stream": "^2.0.0"
   },
   "devDependencies": {
     "ava": "0.0.4"
