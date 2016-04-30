@@ -31,9 +31,8 @@ $ strip-bom --help
 ## Related
 
 - [strip-bom](https://github.com/sindresorhus/strip-bom) - API for this module
-- [strip-bom-stream](https://github.com/sindresorhus/strip-bom-stream) - Strip UTF-8 byte order mark (BOM) from a stream
 
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
