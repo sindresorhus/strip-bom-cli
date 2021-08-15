@@ -1,48 +1,52 @@
 {
-  "name": "strip-bom-cli",
-  "version": "1.1.0",
-  "description": "Strip UTF-8 byte order mark (BOM)",
-  "license": "MIT",
-  "repository": "sindresorhus/strip-bom-cli",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "bin": {
-    "strip-bom": "cli.js"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "node test.js"
-  },
-  "files": [
-    "cli.js"
-  ],
-  "keywords": [
-    "cli-app",
-    "cli",
-    "bom",
-    "strip",
-    "byte",
-    "mark",
-    "unicode",
-    "utf8",
-    "utf-8",
-    "remove",
-    "delete",
-    "trim",
-    "text",
-    "stream",
-    "streams"
-  ],
-  "dependencies": {
-    "meow": "^3.3.0",
-    "strip-bom-stream": "^2.0.0"
-  },
-  "devDependencies": {
-    "ava": "0.0.4"
-  }
+	"name": "strip-bom-cli",
+	"version": "1.1.0",
+	"description": "Strip UTF-8 byte order mark (BOM)",
+	"license": "MIT",
+	"repository": "sindresorhus/strip-bom-cli",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"bin": {
+		"strip-bom": "./cli.js"
+	},
+	"engines": {
+		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"cli.js"
+	],
+	"keywords": [
+		"cli-app",
+		"cli",
+		"bom",
+		"strip",
+		"byte",
+		"mark",
+		"unicode",
+		"utf8",
+		"utf-8",
+		"remove",
+		"delete",
+		"trim",
+		"text",
+		"stream",
+		"streams"
+	],
+	"dependencies": {
+		"meow": "^10.1.1",
+		"strip-bom-stream": "^5.0.0"
+	},
+	"devDependencies": {
+		"ava": "3.15.0",
+		"execa": "^5.1.1",
+		"xo": "^0.44.0"
+	}
 }

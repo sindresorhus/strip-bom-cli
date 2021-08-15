@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-'use strict';
-var fs = require('fs');
-var meow = require('meow');
-var stripBomStream = require('strip-bom-stream');
+import process from 'node:process';
+import fs from 'node:fs';
+import meow from 'meow';
+import stripBomStream from 'strip-bom-stream';
 
-var cli = meow({
-	help: [
-		'Usage',
-		'  $ strip-bom <file> > <new-file>',
-		'  $ cat <file> | strip-bom > <new-file>',
-		'',
-		'Example',
-		'  $ strip-bom unicorn.txt > unicorn-without-bom.txt'
-	]
+const cli = meow(`
+	Usage
+	  $ strip-bom <file> > <new-file>
+	  $ cat <file> | strip-bom > <new-file>
+
+	Example
+	  $ strip-bom unicorn.txt > unicorn-without-bom.txt
+`, {
+	importMeta: import.meta,
 });
 
-var input = cli.input[0];
+const input = cli.input[0];
 
 if (!input && process.stdin.isTTY) {
 	console.error('Expected a filename');
