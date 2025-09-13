@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import process from 'node:process';
 import fs from 'node:fs';
-import {Buffer} from 'node:buffer';
 import meow from 'meow';
 import stripBomStream from 'strip-bom-stream';
 
@@ -12,7 +11,7 @@ const cli = meow(`
 	  $ cat <file> | strip-bom > <new-file>
 
 	Options
-	  --in-place  Modify the file in-place
+	  --in-place  Modify the file in-place (be careful!)
 
 	Examples
 	  $ strip-bom unicorn.txt > unicorn-without-bom.txt
@@ -32,7 +31,7 @@ function stripBomInPlace(filePath) {
 	const fd = fs.openSync(filePath, 'r+');
 
 	try {
-		const bomBuffer = Buffer.alloc(3);
+		const bomBuffer = new Uint8Array(3);
 		const bytesRead = fs.readSync(fd, bomBuffer, 0, 3, 0);
 
 		const hasBom = bytesRead >= 3 && bomBuffer[0] === 0xEF && bomBuffer[1] === 0xBB && bomBuffer[2] === 0xBF;
@@ -45,7 +44,7 @@ function stripBomInPlace(filePath) {
 		const fileSize = stats.size;
 
 		const chunkSize = 64 * 1024;
-		const buffer = Buffer.alloc(chunkSize);
+		const buffer = new Uint8Array(chunkSize);
 		let readPosition = 3;
 		let writePosition = 0;
 

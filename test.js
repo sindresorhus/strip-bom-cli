@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {Buffer} from 'node:buffer';
 import test from 'ava';
-import execa from 'execa';
+import {execa} from 'execa';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const cliPath = path.join(__dirname, 'cli.js');
@@ -148,20 +147,26 @@ test('handles file with only BOM', async t => {
 
 test('preserves binary data integrity after BOM', async t => {
 	const testFile = path.join(__dirname, 'test-binary.bin');
-	const binaryData = Buffer.concat([
-		Buffer.from([0xEF, 0xBB, 0xBF]), // BOM
-		Buffer.from('Text\n'),
-		Buffer.from([0x00, 0xFF, 0x80, 0x7F]), // Binary bytes
-		Buffer.from('\nMore text'),
-	]);
+	const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+	const text = new TextEncoder().encode('Text\n');
+	const binaryBytes = new Uint8Array([0x00, 0xFF, 0x80, 0x7F]);
+	const moreText = new TextEncoder().encode('\nMore text');
+
+	const binaryData = new Uint8Array(bom.length + text.length + binaryBytes.length + moreText.length);
+	binaryData.set(bom, 0);
+	binaryData.set(text, bom.length);
+	binaryData.set(binaryBytes, bom.length + text.length);
+	binaryData.set(moreText, bom.length + text.length + binaryBytes.length);
+
 	fs.writeFileSync(testFile, binaryData);
 
 	const {stderr} = await execa(cliPath, ['--in-place', testFile]);
 	t.regex(stderr, /BOM removed/);
 
-	const result = fs.readFileSync(testFile);
+	const result = new Uint8Array(fs.readFileSync(testFile));
 	const expected = binaryData.slice(3);
-	t.true(Buffer.compare(result, expected) === 0);
+	t.true(result.every((byte, i) => byte === expected[i]));
+	t.is(result.length, expected.length);
 
 	fs.unlinkSync(testFile);
 });
@@ -169,20 +174,22 @@ test('preserves binary data integrity after BOM', async t => {
 test('handles chunk boundaries correctly', async t => {
 	const testFile = path.join(__dirname, 'test-boundary.bin');
 	const size = 64 * 1024; // Exactly one chunk
-	const testData = Buffer.alloc(size);
+	const testData = new Uint8Array(size);
 	for (let i = 0; i < size; i++) {
 		testData[i] = i % 256;
 	}
 
-	const withBom = Buffer.concat([Buffer.from([0xEF, 0xBB, 0xBF]), testData]);
+	const withBom = new Uint8Array(3 + size);
+	withBom.set([0xEF, 0xBB, 0xBF], 0);
+	withBom.set(testData, 3);
 	fs.writeFileSync(testFile, withBom);
 
 	const {stderr} = await execa(cliPath, ['--in-place', testFile]);
 	t.regex(stderr, /BOM removed/);
 
-	const result = fs.readFileSync(testFile);
+	const result = new Uint8Array(fs.readFileSync(testFile));
 	t.is(result.length, size);
-	t.true(Buffer.compare(result, testData) === 0);
+	t.true(result.every((byte, i) => byte === testData[i]));
 
 	fs.unlinkSync(testFile);
 });

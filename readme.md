@@ -8,8 +8,8 @@ From Wikipedia:
 
 ## Install
 
-```
-$ npm install --global strip-bom-cli
+```sh
+npm install --global strip-bom-cli
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ $ strip-bom --help
     $ cat <file> | strip-bom > <new-file>
 
   Options
-    --in-place  Modify the file in-place
+    --in-place  Modify the file in-place (be careful!)
 
   Examples
     $ strip-bom unicorn.txt > unicorn-without-bom.txt
@@ -33,4 +33,4 @@ $ strip-bom --help
 
 ## Related
 
-- [strip-bom](https://github.com/sindresorhus/strip-bom) - API for this module
+- [strip-bom](https://github.com/sindresorhus/strip-bom) - API for this package
