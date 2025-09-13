@@ -19,10 +19,16 @@ $ strip-bom --help
 
   Usage
     $ strip-bom <file> > <new-file>
+    $ strip-bom --in-place <file>…
     $ cat <file> | strip-bom > <new-file>
 
-  Example
+  Options
+    --in-place  Modify the file in-place
+
+  Examples
     $ strip-bom unicorn.txt > unicorn-without-bom.txt
+    $ strip-bom --in-place unicorn.txt
+    $ strip-bom --in-place *.txt
 ```
 
 ## Related
